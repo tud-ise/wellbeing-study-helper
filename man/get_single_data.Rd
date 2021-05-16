@@ -16,7 +16,7 @@ get_single_data(session_id, rescue_time_api_key, scope, all_data)
 \item{all_data}{data.frame the data of all participants}
 }
 \value{
-data.frame containing only the indivuduals data enriched with detailes screen time data
+data.frame containing only the individuals data enriched with detailed screen time data
 }
 \description{
 Function to retrieve a single data set

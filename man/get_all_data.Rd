@@ -2,7 +2,7 @@
 % Please edit documentation in R/main.R
 \name{get_all_data}
 \alias{get_all_data}
-\title{Function that writes esm and screen time data of all participants to a single file}
+\title{Function that returns esm and screen time data of all survey participants}
 \usage{
 get_all_data()
 }
@@ -10,7 +10,7 @@ get_all_data()
 \item{file_name}{string the file name of the csv file to store the data}
 }
 \description{
-Function that writes esm and screen time data of all participants to a single file
+Function that returns esm and screen time data of all survey participants
 }
 \examples{
 data <- get_all_data()

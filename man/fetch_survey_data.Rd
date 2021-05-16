@@ -2,7 +2,7 @@
 % Please edit documentation in R/main.R
 \name{fetch_survey_data}
 \alias{fetch_survey_data}
-\title{Fetch Survey Data From RescueTime}
+\title{Fetch Survey Data From Formr}
 \usage{
 fetch_survey_data(
   formr_email,
@@ -21,7 +21,7 @@ fetch_survey_data(
 \item{daily_survey_name}{string the internal formr name of the daily survey}
 }
 \description{
-Fetch Survey Data From RescueTime
+Fetch Survey Data From Formr
 }
 \examples{
 fetch_survey_data("test@test.de", "passwort123", "initial_survey", "daily_survey")
