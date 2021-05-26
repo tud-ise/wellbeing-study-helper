@@ -8,7 +8,8 @@ fetch_survey_data(
   formr_email,
   formr_password,
   initial_survey_name,
-  daily_survey_name
+  daily_survey_name,
+  final_survey_name
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ fetch_survey_data(
 \item{initial_survey_name}{string the internal formr name of the initial survey}
 
 \item{daily_survey_name}{string the internal formr name of the daily survey}
+
+\item{final_survey_name}{string the internal formr name of the final survey}
 }
 \description{
 Fetch Survey Data From Formr

@@ -2,7 +2,7 @@
 % Please edit documentation in R/main.R
 \name{get_initial_survey_data}
 \alias{get_initial_survey_data}
-\title{Function that retreives initial survey data of an participant}
+\title{Function that retrieves initial survey data of an participant}
 \usage{
 get_initial_survey_data(id)
 }
@@ -13,5 +13,5 @@ get_initial_survey_data(id)
 data.frame with initial survey data
 }
 \description{
-Function that retreives initial survey data of an participant
+Function that retrieves initial survey data of an participant
 }

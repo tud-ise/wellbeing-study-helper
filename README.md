@@ -19,7 +19,7 @@ To query all data you need to do the following:
 
 ``` r
 library(increasingwellbeing)
-fetch_survey_data("test@test.de", "passwort123", "initial_survey", "daily_survey")
+fetch_survey_data("test@test.de", "passwort123", "initial_survey", "daily_survey", "final_survey")
 data <- get_all_data()
 write.csv(data, "all_data.csv", na = "", row.names = FALSE)
 ```

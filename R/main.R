@@ -4,16 +4,20 @@
 #' @param formr_password string the password of the formr account
 #' @param initial_survey_name string the internal formr name of the initial survey
 #' @param daily_survey_name  string the internal formr name of the daily survey
+#' @param final_survey_name  string the internal formr name of the final survey
 #'
 #' @export
 #'
 #' @examples fetch_survey_data("test@test.de", "passwort123", "initial_survey", "daily_survey")
-fetch_survey_data <- function(formr_email, formr_password, initial_survey_name, daily_survey_name) {
+fetch_survey_data <- function(formr_email, formr_password, initial_survey_name, daily_survey_name, final_survey_name) {
   formr::formr_connect(formr_email, formr_password)
   initial_survey <- formr::formr_raw_results(initial_survey_name)
   daily_survey <- formr::formr_raw_results(daily_survey_name)
+  final_survey <- formr::formr_raw_results(final_survey_name)
   assign("initial_survey", initial_survey, envir = .GlobalEnv)
   assign("daily_survey", daily_survey, envir = .GlobalEnv)
+  assign("final_survey", final_survey, envir = .GlobalEnv)
+
 }
 
 
@@ -46,20 +50,28 @@ get_all_data <- function() {
     # initial data
     initial_survey_data <- get_initial_survey_data(id)
 
+    # final data
+    final_survey_data <- get_final_survey_data(id)
+
     # merge data
-    if (!is.null(screen_time_data)) {
+    if (!is.null(screen_time_data) && nrow(screen_time_data) > 0) {
       result <- merge(daily_survey_data, screen_time_data, by = "date", all=TRUE)
     } else {
       result <- daily_survey_data
     }
     result <- transform(result, session = id)
     result <- merge(result, initial_survey_data, by = "session", all = TRUE)
+
+    if (!is.null(final_survey_data) && nrow(final_survey_data) > 0) {
+      result <- merge(result, final_survey_data, by = "date", all=TRUE)
+    }
+
     if (!is.null(all_data)) {
       all_data <- plyr::rbind.fill(all_data, result)
     } else {
       all_data <- result
     }
-    rm("daily_survey_data", "screen_time_data", "initial_survey_data", "result")
+    rm("daily_survey_data", "screen_time_data", "initial_survey_data", "final_survey_data", "result")
   }
   return(all_data)
 }
@@ -111,6 +123,12 @@ get_single_data <- function(session_id, rescue_time_api_key, scope, all_data) {
 get_screen_time_data_for_date <- function(session, startdate, enddate) {
   index <- which(grepl(session, initial_survey$session))
   key <- initial_survey[index, "participant_api_key"]
+
+  # if key is not present in initial survey, try final survey
+  if (!is.na(key)) {
+    index <- which(grepl(session, final_survey$session))
+    key <- final_survey[index, "participant_api_key"]
+  }
 
   # set start time to 00:00:00
   startdate <- strptime(startdate, "%Y-%m-%d %H:%M:%S")
@@ -185,7 +203,7 @@ get_daily_survey_data <- function(id) {
 
 
 
-#' Function that retreives initial survey data of an participant
+#' Function that retrieves initial survey data of an participant
 #'
 #' @param id string session id of the participant
 #'
@@ -200,3 +218,22 @@ get_initial_survey_data <- function(id) {
   return(data)
 }
 
+
+#' Function that retrieves final survey data of an participant
+#'
+#' @param id string session id of the participant
+#'
+#' @return data.frame with initial survey data
+get_final_survey_data <- function(id) {
+  # get data for participant
+  data <- final_survey[which(grepl(id, final_survey$session)),]
+  # remove ignored columns
+  data <- data[ , -which(names(data) %in% c(ignored_columns, "created"))]
+  # add prefixes to each column
+  data <- add_prefix_to_columns(data, "final", c("session"))
+  # transform date values
+  data <- transform(data, created = strftime(strptime(created, "%Y-%m-%d %H:%M:%S"), "%Y-%m-%d"))
+  # rename created column with date
+  colnames(data)[colnames(data) == "created"] <- "date"
+  return(data)
+}

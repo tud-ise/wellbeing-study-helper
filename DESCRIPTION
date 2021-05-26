@@ -1,7 +1,7 @@
 Package: wellbeingstudyhelper
 Type: Package
 Title: Wellbeing Study Helper
-Version: 0.1.0
+Version: 0.2.0
 Author: Niko Wenzl
 Maintainer: Niko Wenzl <niko.wenzl@stud.tu-darmstadt.de>
 Description: Package to get results of esm and screen time data from wellbeing study
