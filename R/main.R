@@ -63,7 +63,7 @@ get_all_data <- function() {
     result <- merge(result, initial_survey_data, by = "session", all = TRUE)
 
     if (!is.null(final_survey_data) && nrow(final_survey_data) > 0) {
-      result <- merge(result, final_survey_data, by = "date", all=TRUE)
+      result <- merge(result, final_survey_data, by = "session", all=TRUE)
     }
 
     if (!is.null(all_data)) {
