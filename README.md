@@ -15,7 +15,7 @@ The Package offers the functionality to receive data from a formr survey and que
 
 ### All Data
   
-To query all data you need to do the following:
+To query all data you need to do the following (you need to replace the mail and passwort with yout formr login data):
 
 ``` r
 library(increasingwellbeing)
