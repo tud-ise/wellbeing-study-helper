@@ -4,7 +4,7 @@
 \alias{get_all_data}
 \title{Function that returns esm and screen time data of all survey participants}
 \usage{
-get_all_data()
+get_all_data(previous_result = NULL)
 }
 \arguments{
 \item{file_name}{string the file name of the csv file to store the data}
