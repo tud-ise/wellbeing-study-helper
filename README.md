@@ -19,7 +19,7 @@ To query all data you need to do the following (you need to replace the mail and
 
 ``` r
 # load the library
-library(increasingwellbeing)
+library(wellbeingstudyhelper)
 
 # fetch the survey results and provide the formr mail adress and passwort 
 # aswell as the internal name of the initial, daily and final survey name
@@ -36,7 +36,7 @@ To query the data intermediately, you can execute the get_all_data() Function mu
 
 ``` r
 # load the library
-library(increasingwellbeing)
+library(wellbeingstudyhelper)
 
 # fetch survey for the first time
 fetch_survey_data("test@test.de", "passwort123", "initial_survey", "daily_survey", "final_survey")
@@ -66,7 +66,7 @@ Due to privacy issues, you need to provide the all_data as well as your session 
 
 ``` r
 # load the library
-library(increasingwellbeing)
+library(wellbeingstudyhelper)
 
 # read the provide dataset with all data into a variable
 all_data <- read.csv("all_data.csv")
