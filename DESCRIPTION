@@ -9,7 +9,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Remotes:
-  github::rubenarslan/formr
+  github::rubenarslan/formr,
   github::tud-ise/rescuetime-r-wrapper
 Imports:
     lubridate,
