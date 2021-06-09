@@ -266,15 +266,16 @@ get_final_survey_data <- function(id) {
   if (exists("final_survey")) {
     # get data for participant
     data <- final_survey[which(grepl(id, final_survey$session)),]
-    # remove ignored columns
-    data <- data[ , -which(names(data) %in% c(ignored_columns, "created"))]
-    # add prefixes to each column
-    data <- add_prefix_to_columns(data, "final", c("session"))
-    # transform date values
-    data <- transform(data, created = strftime(strptime(created, "%Y-%m-%d %H:%M:%S"), "%Y-%m-%d"))
-    # rename created column with date
-    colnames(data)[colnames(data) == "created"] <- "date"
-    return(data)
+    if (!is.null(data) && ncol(data) > 0 && nrow(data) > 0) {
+      # remove ignored columns
+      data <- data[ , -which(names(data) %in% c(ignored_columns, "created"))]
+      # add prefixes to each column
+      data <- add_prefix_to_columns(data, "final", c("session"))
+      return(data)
+    } else {
+      return(NULL)
+    }
+
   } else {
     return(NULL)
   }
